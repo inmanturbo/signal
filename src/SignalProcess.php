@@ -2,9 +2,9 @@
 
 namespace Inmanturbo\Signal;
 
-class Signal {
-
-    public static function signal(
+class SignalProcess
+{
+    public static function subject(
         $aggregate,
         $command,
         Event $event,
@@ -21,4 +21,4 @@ class Signal {
     {
         SignalMessage::process($aggregate, $command, $event);
     }
-}
+} 
