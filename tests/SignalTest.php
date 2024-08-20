@@ -9,27 +9,25 @@ use Spatie\EventSourcing\StoredEvents\ShouldBeStored;
 it('can add item to cart', function () {
     $product = new Product(
         '123',
-        1,
-        1,
+        2,
+        100,
     );
 
     CommandBus::dispatch(new AddCartItem(
         'fake-uuid',
         'fake-uuid2',
         $product,
-        100,
     ));
 
     CommandBus::dispatch(new AddCartItem(
         'fake-uuid',
         'fake-uuid3',
         $product,
-        100,
     ));
 
     $cart = CartAggregateRoot::retrieve('fake-uuid');
 
-    expect($cart->amount)->toBe(200);
+    expect($cart->total)->toBe(400);
     expect(count($cart->cartItems))->toBe(2);
 });
 
@@ -49,7 +47,6 @@ class CartItemAdded extends ShouldBeStored
         public string $aggregateUuid,
         public string $cartItemUuid,
         public Product $product,
-        public int $amount,
     )
     {
     }
@@ -63,14 +60,13 @@ class AddCartItem
         public string $cartUuid,
         public string $cartItemUuid,
         public Product $product,
-        public int $amount,
     ) {
     }
 }
 
 class CartAggregateRoot extends AggregateRoot
 {
-    public $amount;
+    public $total;
 
     public array $cartItems;
 
@@ -83,7 +79,6 @@ class CartAggregateRoot extends AggregateRoot
                 $this->uuid(),
                 $addCartItem->cartItemUuid,
                 $addCartItem->product,
-                $addCartItem->amount,
             )
         );
 
@@ -92,12 +87,12 @@ class CartAggregateRoot extends AggregateRoot
 
     public function applyAddItem(CartItemAdded $event)
     {
-        $this->amount += $event->amount;
+        $this->total += $amount = ($event->product->quantity * $event->product->price);
 
         $this->cartItems[] = (object) [
             'uuid' => $event->cartItemUuid,
             'product' => $event->product,
-            'amount' => $event->amount,
+            'amount' => $amount,
         ];
     }
 }
