@@ -1,11 +1,12 @@
 <?php
 
+use Inmanturbo\Signal\EventWithData;
 use Inmanturbo\Signal\Facades\CommandBus;
 use Spatie\EventSourcing\AggregateRoots\AggregateRoot;
 use Spatie\EventSourcing\Commands\AggregateUuid;
 use Spatie\EventSourcing\Commands\HandledBy;
 use Spatie\EventSourcing\Snapshots\EloquentSnapshot;
-use Spatie\EventSourcing\StoredEvents\ShouldBeStored;
+use Spatie\LaravelData\Data;
 
 it('can add item to cart', function () {
     $product = new Product(
@@ -30,11 +31,11 @@ it('can add item to cart', function () {
 
     $cart->snapshot();
 
-    CommandBus::dispatch(new AddCartItem(
-        'fake-uuid',
-        'fake-uuid4',
-        $product,
-    ));
+    CommandBus::dispatch(AddCartItem::from([
+        'cartUuid' =>  'fake-uuid',
+        'cartItemUuid' => 'fake-uuid4',
+        'product' => $product,
+    ]));
 
     $cart = CartAggregateRoot::retrieve('fake-uuid');
 
@@ -43,7 +44,7 @@ it('can add item to cart', function () {
     expect(EloquentSnapshot::count())->toBe(1);
 });
 
-class Product
+class Product extends Data
 {
     public function __construct(
         public string $sku,
@@ -53,10 +54,11 @@ class Product
     {}
 }
 
-class CartItemAdded extends ShouldBeStored
+class CartItemAdded extends EventWithData
 {
     public function __construct(
-        public string $aggregateUuid,
+        #[AggregateUuid]
+        public string $cartUuid,
         public string $cartItemUuid,
         public Product $product,
     )
@@ -65,15 +67,9 @@ class CartItemAdded extends ShouldBeStored
 }
 
 #[HandledBy(CartAggregateRoot::class)]
-class AddCartItem
+class AddCartItem extends CartItemAdded
 {
-    public function __construct(
-        #[AggregateUuid] 
-        public string $cartUuid,
-        public string $cartItemUuid,
-        public Product $product,
-    ) {
-    }
+    //
 }
 
 class CartAggregateRoot extends AggregateRoot
@@ -87,11 +83,7 @@ class CartAggregateRoot extends AggregateRoot
     ): self {
         
         $this->recordThat(
-            new CartItemAdded(
-                $this->uuid(),
-                $addCartItem->cartItemUuid,
-                $addCartItem->product,
-            )
+            CartItemAdded::from($addCartItem->toArray()),
         );
 
         return $this;

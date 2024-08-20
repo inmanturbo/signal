@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Inmanturbo\Signal\SignalServiceProvider;
 use Spatie\EventSourcing\EventSourcingServiceProvider;
+use Spatie\LaravelData\LaravelDataServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -23,6 +24,7 @@ class TestCase extends Orchestra
         return [
             SignalServiceProvider::class,
             EventSourcingServiceProvider::class,
+            LaravelDataServiceProvider::class,
         ];
     }
 

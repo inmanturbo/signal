@@ -19,6 +19,7 @@
         "php": "^8.2",
         "illuminate/contracts": "^10.0||^11.0",
         "inmanturbo/functional-library": "^1.0",
+        "spatie/laravel-data": "^4.8",
         "spatie/laravel-event-sourcing": "^7.7",
         "spatie/laravel-package-tools": "^1.16"
     },

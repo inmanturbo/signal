@@ -25,6 +25,19 @@ class SignalServiceProvider extends PackageServiceProvider
 
     public function registeringPackage()
     {
+        $this->setConfigs();
+
         $this->app->singleton(CommandBus::class);
+    }
+
+    protected function setConfigs(): void
+    {
+        $this->mergeConfigFrom(
+            __DIR__ . '/../config/laravel-data' . DIRECTORY_SEPARATOR . 'event-sourcing.php',
+            'signal.event-sourcing'
+        );
+
+
+        config(['event-sourcing' => array_merge(config('event-sourcing') ?? [], config('signal.event-sourcing'))]);
     }
 }
