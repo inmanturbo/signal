@@ -5,6 +5,7 @@ namespace Inmanturbo\Signal\Tests;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Inmanturbo\Signal\SignalServiceProvider;
+use Spatie\EventSourcing\EventSourcingServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -21,6 +22,7 @@ class TestCase extends Orchestra
     {
         return [
             SignalServiceProvider::class,
+            EventSourcingServiceProvider::class,
         ];
     }
 
@@ -28,9 +30,11 @@ class TestCase extends Orchestra
     {
         config()->set('database.default', 'testing');
 
-        /*
-        $migration = include __DIR__.'/../database/migrations/create_signal_table.php.stub';
+
+        $migration = include __DIR__.'/../vendor/spatie/laravel-event-sourcing/database/migrations/create_snapshots_table.php.stub';
         $migration->up();
-        */
+
+        $migration = include __DIR__.'/../vendor/spatie/laravel-event-sourcing/database/migrations/create_stored_events_table.php.stub';
+        $migration->up();
     }
 }
