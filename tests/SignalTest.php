@@ -1,8 +1,8 @@
 <?php
 
+use Inmanturbo\Signal\Facades\CommandBus;
 use Spatie\EventSourcing\AggregateRoots\AggregateRoot;
 use Spatie\EventSourcing\Commands\AggregateUuid;
-use Spatie\EventSourcing\Commands\CommandBus;
 use Spatie\EventSourcing\Commands\HandledBy;
 use Spatie\EventSourcing\StoredEvents\ShouldBeStored;
 
@@ -13,18 +13,14 @@ it('can add item to cart', function () {
         1,
     );
 
-    $bus = app(CommandBus::class);
-
-    $bus->middleware();
-
-    $bus->dispatch(new AddCartItem(
+    CommandBus::dispatch(new AddCartItem(
         'fake-uuid',
         'fake-uuid2',
         $product,
         100,
     ));
 
-    $bus->dispatch(new AddCartItem(
+    CommandBus::dispatch(new AddCartItem(
         'fake-uuid',
         'fake-uuid3',
         $product,
