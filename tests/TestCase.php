@@ -25,18 +25,12 @@ class TestCase extends Orchestra
             SignalServiceProvider::class,
             EventSourcingServiceProvider::class,
             LaravelDataServiceProvider::class,
+            
         ];
     }
 
     public function getEnvironmentSetUp($app)
     {
         config()->set('database.default', 'testing');
-
-
-        $migration = include __DIR__.'/../vendor/spatie/laravel-event-sourcing/database/migrations/create_snapshots_table.php.stub';
-        $migration->up();
-
-        $migration = include __DIR__.'/../vendor/spatie/laravel-event-sourcing/database/migrations/create_stored_events_table.php.stub';
-        $migration->up();
     }
 }

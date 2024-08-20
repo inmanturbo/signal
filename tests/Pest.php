@@ -2,4 +2,9 @@
 
 use Inmanturbo\Signal\Tests\TestCase;
 
-uses(TestCase::class)->in(__DIR__);
+uses(TestCase::class)
+->beforeEach(function () {
+    $this->artisan('signal:migrate')->assertExitCode(0);
+})
+->in(__DIR__);
+
