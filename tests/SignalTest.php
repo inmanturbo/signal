@@ -4,6 +4,7 @@ use Inmanturbo\Signal\Facades\CommandBus;
 use Spatie\EventSourcing\AggregateRoots\AggregateRoot;
 use Spatie\EventSourcing\Commands\AggregateUuid;
 use Spatie\EventSourcing\Commands\HandledBy;
+use Spatie\EventSourcing\Snapshots\EloquentSnapshot;
 use Spatie\EventSourcing\StoredEvents\ShouldBeStored;
 
 it('can add item to cart', function () {
@@ -27,8 +28,19 @@ it('can add item to cart', function () {
 
     $cart = CartAggregateRoot::retrieve('fake-uuid');
 
-    expect($cart->total)->toBe(400);
-    expect(count($cart->cartItems))->toBe(2);
+    $cart->snapshot();
+
+    CommandBus::dispatch(new AddCartItem(
+        'fake-uuid',
+        'fake-uuid4',
+        $product,
+    ));
+
+    $cart = CartAggregateRoot::retrieve('fake-uuid');
+
+    expect($cart->total)->toBe(600);
+    expect(count($cart->cartItems))->toBe(3);
+    expect(EloquentSnapshot::count())->toBe(1);
 });
 
 class Product
