@@ -22,4 +22,9 @@ class SignalServiceProvider extends PackageServiceProvider
             ->hasMigration('create_signal_table')
             ->hasCommand(SignalCommand::class);
     }
+
+    public function registeringPackage()
+    {
+        $this->app->singleton(CommandBus::class);
+    }
 }
