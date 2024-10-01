@@ -3,6 +3,7 @@
 namespace Inmanturbo\Signal\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Inmanturbo\Signal\Console\Commands\SignalConfigureCommand;
 use Inmanturbo\Signal\Console\Commands\SignalMigrateCommand;
 use Inmanturbo\Signal\Signal;
 
@@ -36,6 +37,7 @@ class AppServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 SignalMigrateCommand::class,
+                SignalConfigureCommand::class,
             ]);
         }
     }

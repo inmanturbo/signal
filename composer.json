@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "inmanturbo/tandem": "*",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
         "spatie/laravel-data": "^4.9",
@@ -20,6 +21,7 @@
         "laravel/sail": "^1.26",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.0",
+        "orchestra/testbench": "^9.5",
         "pestphp/pest": "^3.2",
         "pestphp/pest-plugin-laravel": "^3.0",
         "phpstan/phpstan": "^1.12",
@@ -27,8 +29,6 @@
     },
     "autoload": {
         "psr-4": {
-            "Inmanturbo\\Signal\\Database\\Factories\\": "database/factories/",
-            "Inmanturbo\\Signal\\Database\\Seeders\\": "database/seeders/",
             "Inmanturbo\\Signal\\": "app/"
         }
     },

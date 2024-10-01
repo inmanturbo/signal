@@ -1,7 +1,7 @@
 <?php
 
 use Inmanturbo\Signal\EventWithData;
-use Inmanturbo\Signal\Facades\CommandBus;
+use Inmanturbo\Signal\Signal;
 use Spatie\EventSourcing\AggregateRoots\AggregateRoot;
 use Spatie\EventSourcing\Commands\AggregateUuid;
 use Spatie\EventSourcing\Commands\HandledBy;
@@ -15,13 +15,13 @@ it('can add item to cart', function (): void {
         100,
     );
 
-    CommandBus::dispatch(new AddCartItem(
+    app(Signal::class)(new AddCartItem(
         'fake-uuid',
         'fake-uuid2',
         $product,
     ));
 
-    CommandBus::dispatch(new AddCartItem(
+    app(Signal::class)(new AddCartItem(
         'fake-uuid',
         'fake-uuid3',
         $product,
@@ -31,7 +31,7 @@ it('can add item to cart', function (): void {
 
     $cart->snapshot();
 
-    CommandBus::dispatch(AddCartItem::from([
+    app(Signal::class)(AddCartItem::from([
         'cartUuid' => 'fake-uuid',
         'cartItemUuid' => 'fake-uuid4',
         'product' => $product,
