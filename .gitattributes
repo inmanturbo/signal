@@ -18,3 +18,6 @@
 /UPGRADING.md       export-ignore
 /phpstan.neon.dist  export-ignore
 /phpstan-baseline.neon  export-ignore
+/bootstrap export-ignore
+/artisan export-ignore
+/maker export-ignore

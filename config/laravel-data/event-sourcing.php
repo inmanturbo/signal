@@ -1,6 +1,5 @@
 <?php
 
-
 return [
 
     /*
@@ -11,4 +10,3 @@ return [
     'event_serializer' => Inmanturbo\Signal\DataEventSerializer::class,
 
 ];
-

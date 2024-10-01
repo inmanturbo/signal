@@ -3,8 +3,8 @@
 namespace Inmanturbo\Signal\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Orchestra\Testbench\TestCase as Orchestra;
 use Inmanturbo\Signal\SignalServiceProvider;
+use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\EventSourcing\EventSourcingServiceProvider;
 use Spatie\LaravelData\LaravelDataServiceProvider;
 
@@ -25,7 +25,7 @@ class TestCase extends Orchestra
             SignalServiceProvider::class,
             EventSourcingServiceProvider::class,
             LaravelDataServiceProvider::class,
-            
+
         ];
     }
 

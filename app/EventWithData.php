@@ -2,8 +2,8 @@
 
 namespace Inmanturbo\Signal;
 
-use Spatie\EventSourcing\StoredEvents\ShouldBeStored;
 use Illuminate\Contracts\Support\Responsable;
+use Spatie\EventSourcing\StoredEvents\ShouldBeStored;
 use Spatie\LaravelData\Concerns\AppendableData;
 use Spatie\LaravelData\Concerns\BaseData;
 use Spatie\LaravelData\Concerns\ContextableData;
@@ -22,16 +22,15 @@ use Spatie\LaravelData\Contracts\TransformableData as TransformableDataContract;
 use Spatie\LaravelData\Contracts\ValidateableData as ValidateableDataContract;
 use Spatie\LaravelData\Contracts\WrappableData as WrappableDataContract;
 
-
-abstract class EventWithData extends ShouldBeStored implements Responsable, AppendableDataContract, BaseDataContract, TransformableDataContract, IncludeableDataContract, ResponsableDataContract, ValidateableDataContract, WrappableDataContract, EmptyDataContract
+abstract class EventWithData extends ShouldBeStored implements AppendableDataContract, BaseDataContract, EmptyDataContract, IncludeableDataContract, Responsable, ResponsableDataContract, TransformableDataContract, ValidateableDataContract, WrappableDataContract
 {
-    use ResponsableData;
-    use IncludeableData;
     use AppendableData;
+    use BaseData;
+    use ContextableData;
+    use EmptyData;
+    use IncludeableData;
+    use ResponsableData;
+    use TransformableData;
     use ValidateableData;
     use WrappableData;
-    use TransformableData;
-    use BaseData;
-    use EmptyData;
-    use ContextableData;
 }

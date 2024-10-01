@@ -32,7 +32,7 @@ it('can add item to cart', function () {
     $cart->snapshot();
 
     CommandBus::dispatch(AddCartItem::from([
-        'cartUuid' =>  'fake-uuid',
+        'cartUuid' => 'fake-uuid',
         'cartItemUuid' => 'fake-uuid4',
         'product' => $product,
     ]));
@@ -50,8 +50,7 @@ class Product extends Data
         public string $sku,
         public int $quantity,
         public int $price,
-    )
-    {}
+    ) {}
 }
 
 class CartItemAdded extends EventWithData
@@ -61,9 +60,7 @@ class CartItemAdded extends EventWithData
         public string $cartUuid,
         public string $cartItemUuid,
         public Product $product,
-    )
-    {
-    }
+    ) {}
 }
 
 #[HandledBy(CartAggregateRoot::class)]
@@ -81,7 +78,7 @@ class CartAggregateRoot extends AggregateRoot
     public function addItem(
         AddCartItem $addCartItem
     ): self {
-        
+
         $this->recordThat(
             CartItemAdded::from($addCartItem->toArray()),
         );
@@ -100,5 +97,3 @@ class CartAggregateRoot extends AggregateRoot
         ];
     }
 }
-
-

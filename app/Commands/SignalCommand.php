@@ -104,7 +104,7 @@ class SignalCommand extends Command
         }
     }
 
-    protected function body()
+    protected function body(): void
     {
         if ($this->option('delete-only')) {
             $this->deleteMigrations();

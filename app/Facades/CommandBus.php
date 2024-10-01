@@ -6,8 +6,9 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static mixed dispatch(object $command)
+ * @method static mixed dispatchWithMiddleware(object $command)
  * @method static self middleware(\Inmanturbo\Signal\Middleware ...$middlewares)
- * 
+ *
  * @see \Inmanturbo\Signal\CommandBus
  */
 class CommandBus extends Facade

@@ -2,9 +2,9 @@
 
 namespace Inmanturbo\Signal;
 
+use Inmanturbo\Signal\Commands\SignalCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Inmanturbo\Signal\Commands\SignalCommand;
 
 class SignalServiceProvider extends PackageServiceProvider
 {
@@ -18,12 +18,16 @@ class SignalServiceProvider extends PackageServiceProvider
         $package
             ->name('signal')
             ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_signal_table')
+            ->hasViews();
+        foreach (glob($this->migrationPath().'/*') as $file) {
+            $package->hasMigration(pathinfo($file, PATHINFO_FILENAME));
+        }
+
+        $package
             ->hasCommand(SignalCommand::class);
     }
 
-    public function registeringPackage()
+    public function registeringPackage(): void
     {
         $this->setConfigs();
 
@@ -33,11 +37,15 @@ class SignalServiceProvider extends PackageServiceProvider
     protected function setConfigs(): void
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/laravel-data' . DIRECTORY_SEPARATOR . 'event-sourcing.php',
+            __DIR__.'/../config/laravel-data'.DIRECTORY_SEPARATOR.'event-sourcing.php',
             'signal.event-sourcing'
         );
 
+        config(['event-sourcing' => array_merge((array) config('event-sourcing', []), (array) config('signal.event-sourcing', []))]);
+    }
 
-        config(['event-sourcing' => array_merge(config('event-sourcing') ?? [], config('signal.event-sourcing'))]);
+    protected function migrationPath(): string
+    {
+        return __DIR__.'/../database/migrations';
     }
 }
