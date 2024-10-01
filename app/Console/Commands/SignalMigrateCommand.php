@@ -3,6 +3,9 @@
 namespace Inmanturbo\Signal\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Database\DatabaseManager;
+use Illuminate\Database\Migrations\MigrationRepositoryInterface;
+use Illuminate\Support\Facades\Schema;
 
 class SignalMigrateCommand extends Command
 {
