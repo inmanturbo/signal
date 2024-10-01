@@ -10,9 +10,9 @@ class ReplaceInFiles implements HandlesConfigure
     protected function replacers(): array
     {
         return [
-           FindAndReplaceInFiles::make(
-                'Spatie\EventSourcing\EventSerializers\JsonEventSerializer::class', 
-                'Inmanturbo\Signal\DataEventSerializer::class', 
+            FindAndReplaceInFiles::make(
+                'Spatie\EventSourcing\EventSerializers\JsonEventSerializer::class',
+                'Inmanturbo\Signal\DataEventSerializer::class',
                 config_path(),
             ),
         ];

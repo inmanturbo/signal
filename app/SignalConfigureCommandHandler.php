@@ -7,7 +7,7 @@ use Inmanturbo\Signal\Actions\InvokeHandleConfigure;
 
 class SignalConfigureCommandHandler
 {
-    protected function handlers():array
+    protected function handlers(): array
     {
         return [
             new EnsureEventSourcingConfigIsPublished,

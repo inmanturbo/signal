@@ -8,7 +8,7 @@ class EnsureEventSourcingConfigIsPublished implements HandlesConfigure
 {
     public function __invoke(): void
     {
-        Artisan::call('vendor:publish',[
+        Artisan::call('vendor:publish', [
             '--tag' => 'event-sourcing-config',
         ]);
     }
