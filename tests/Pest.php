@@ -13,6 +13,9 @@
 
 pest()->extend(Tests\TestCase::class)
  // ->use(Illuminate\Foundation\Testing\RefreshDatabase::class)
+    ->beforeEach(function (): void {
+    $this->artisan('signal:migrate')->assertExitCode(0);
+    })
     ->in('Feature');
 
 /*
