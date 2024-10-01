@@ -8,7 +8,7 @@ use Spatie\EventSourcing\Commands\HandledBy;
 use Spatie\EventSourcing\Snapshots\EloquentSnapshot;
 use Spatie\LaravelData\Data;
 
-it('can add item to cart', function () {
+it('can add item to cart', function (): void {
     $product = new Product(
         '123',
         2,
