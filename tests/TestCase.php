@@ -1,36 +1,10 @@
 <?php
 
-namespace Inmanturbo\Signal\Tests;
+namespace Tests;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Inmanturbo\Signal\SignalServiceProvider;
-use Orchestra\Testbench\TestCase as Orchestra;
-use Spatie\EventSourcing\EventSourcingServiceProvider;
-use Spatie\LaravelData\LaravelDataServiceProvider;
+use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
-class TestCase extends Orchestra
+abstract class TestCase extends BaseTestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Inmanturbo\\Signal\\Database\\Factories\\'.class_basename($modelName).'Factory'
-        );
-    }
-
-    protected function getPackageProviders($app)
-    {
-        return [
-            SignalServiceProvider::class,
-            EventSourcingServiceProvider::class,
-            LaravelDataServiceProvider::class,
-
-        ];
-    }
-
-    public function getEnvironmentSetUp($app)
-    {
-        config()->set('database.default', 'testing');
-    }
+    //
 }
