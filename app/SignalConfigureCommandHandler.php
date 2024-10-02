@@ -14,8 +14,8 @@ class SignalConfigureCommandHandler implements HandlesConfigure
 
     public function __invoke(): void
     {
-        foreach ($this->handlers() as $handler) {
-            app($handler)();
+        foreach ($this->handlers() as $action) {
+            app($action)();
         }
     }
 }
