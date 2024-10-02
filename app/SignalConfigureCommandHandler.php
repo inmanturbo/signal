@@ -4,17 +4,14 @@ namespace Inmanturbo\Signal;
 
 class SignalConfigureCommandHandler implements HandlesConfigure
 {
-    protected function handlers(): array
-    {
-        return [
-            EnsureEventSourcingConfigIsPublished::class,
-            ReplaceInFiles::class,
-        ];
-    }
+    protected array $actions = [
+        EnsureEventSourcingConfigIsPublished::class,
+        ReplaceInFiles::class,
+    ];
 
     public function __invoke(): void
     {
-        foreach ($this->handlers() as $action) {
+        foreach ($this->actions as $action) {
             app($action)();
         }
     }
