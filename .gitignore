@@ -21,3 +21,5 @@ yarn-error.log
 /.zed
 
 compsoser.lock
+storage/logs/laravel.log
+composer.lock

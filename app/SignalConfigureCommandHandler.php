@@ -2,21 +2,20 @@
 
 namespace Inmanturbo\Signal;
 
-use Inmanturbo\Signal\Actions\HandleConfigure;
-use Inmanturbo\Signal\Actions\InvokeHandleConfigure;
-
-class SignalConfigureCommandHandler
+class SignalConfigureCommandHandler implements HandlesConfigure
 {
     protected function handlers(): array
     {
         return [
-            new EnsureEventSourcingConfigIsPublished,
-            new ReplaceInFiles,
+            EnsureEventSourcingConfigIsPublished::class,
+            ReplaceInFiles::class,
         ];
     }
 
     public function __invoke(): void
     {
-        app(InvokeHandleConfigure::class)(new HandleConfigure(...$this->handlers()));
+        foreach ($this->handlers() as $handler) {
+            app($handler)();
+        }
     }
 }

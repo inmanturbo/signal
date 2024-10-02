@@ -71,14 +71,5 @@
         }
     },
     "minimum-stability": "dev",
-    "prefer-stable": true,
-    "repositories": {
-        "mod": {
-            "type": "path",
-            "url": "../*",
-            "options": {
-                "symlink": false
-            }
-        }
-    }
+    "prefer-stable": true
 }
