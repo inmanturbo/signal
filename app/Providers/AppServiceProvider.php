@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
         ]);
 
         $this->publishesMigrations([
-            __DIR__.'/../../database/migrations' => database_path('migrations/signal'),
+            __DIR__.'/../../database/migrations' => database_path('migrations'),
         ]);
 
         if ($this->app->runningInConsole()) {
