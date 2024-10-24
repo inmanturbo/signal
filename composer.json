@@ -9,7 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "inmanturbo/tandem": "*",
+        "inmanturbo/tandem": "^1.0.12",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
         "spatie/laravel-data": "^4.9",

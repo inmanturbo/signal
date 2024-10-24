@@ -1,6 +1,6 @@
 <?php
 
-use Inmanturbo\Signal\EventWithData;
+use Inmanturbo\Signal\DataShouldBeStored;
 use Inmanturbo\Signal\Signal;
 use Spatie\EventSourcing\AggregateRoots\AggregateRoot;
 use Spatie\EventSourcing\Commands\AggregateUuid;
@@ -53,7 +53,7 @@ class Product extends Data
     ) {}
 }
 
-class CartItemAdded extends EventWithData
+class CartItemAdded extends DataShouldBeStored
 {
     public function __construct(
         #[AggregateUuid]
