@@ -22,7 +22,7 @@ use Spatie\LaravelData\Contracts\TransformableData as TransformableDataContract;
 use Spatie\LaravelData\Contracts\ValidateableData as ValidateableDataContract;
 use Spatie\LaravelData\Contracts\WrappableData as WrappableDataContract;
 
-abstract class EventWithData extends ShouldBeStored implements AppendableDataContract, BaseDataContract, EmptyDataContract, IncludeableDataContract, Responsable, ResponsableDataContract, TransformableDataContract, ValidateableDataContract, WrappableDataContract
+abstract class DataShouldBeStored extends ShouldBeStored implements AppendableDataContract, BaseDataContract, EmptyDataContract, IncludeableDataContract, Responsable, ResponsableDataContract, TransformableDataContract, ValidateableDataContract, WrappableDataContract
 {
     use AppendableData;
     use BaseData;
